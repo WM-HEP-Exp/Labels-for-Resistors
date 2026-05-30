@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
+
+# =========================
+# Label configuration
+# =========================
+LABEL_WIDTH = 1 * inch
+LABEL_HEIGHT = 1 * inch
+
+PAGE_WIDTH, PAGE_HEIGHT = letter
+
+#MARGIN_X = 0.37 * inch
+#MARGIN_Y = 0.4 * inch
+
+#LABELS_PER_ROW = int((PAGE_WIDTH - 2*MARGIN_X) // LABEL_WIDTH)
+#LABELS_PER_COL = int((PAGE_HEIGHT - 2*MARGIN_Y) // LABEL_HEIGHT)
+
+LEFT_MARGIN   = 0.34 * inch        # 2/8 in
+RIGHT_MARGIN  = 0.05 * inch        # 2/8 in
+
+TOP_MARGIN    = 0.46 * inch      # 4/8 + 1/16 in
+BOTTOM_MARGIN = 0.32 * inch         # 4/8 in
+
+"""Just testing...
+LEFT_MARGIN   = 0.25 * inch        # 2/8 in
+RIGHT_MARGIN  = 0.25 * inch        # 2/8 in
+
+TOP_MARGIN    = 0.5 * inch      # 4/8 + 1/16 in
+BOTTOM_MARGIN = 0.5 * inch         # 4/8 in
+"""
+
+LABELS_PER_ROW = int(
+    (PAGE_WIDTH - LEFT_MARGIN - RIGHT_MARGIN) // LABEL_WIDTH
+)
+
+LABELS_PER_COL = int(
+    (PAGE_HEIGHT - TOP_MARGIN - BOTTOM_MARGIN) // LABEL_HEIGHT
+)
+
+
+
+
+# =========================
+# Example resistor entries
+# =========================
+labels = [
