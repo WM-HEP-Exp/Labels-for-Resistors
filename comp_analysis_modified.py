@@ -522,7 +522,7 @@ if __name__ == '__main__':
     if len(sys.argv) >= 2:
         data_path = sys.argv[1]
 
-        data_files_csv = glob.glob(data_path + "/*Comp*.csv")
+        data_files_csv = glob.glob(data_path + "/*Comp*.csh")
         data_files_json = glob.glob(data_path + "/*Comp*.json")
         if len(data_files_csv) < 1 and len(data_files_json) < 1:
             print("No data files found, exiting")
