@@ -1,0 +1,72 @@
+]
+# =========================
+# Create PDF
+# =========================
+c = canvas.Canvas("resistor_labels.pdf", pagesize=letter)
+c.setFont("Helvetica", 8)
+
+#x = MARGIN_X
+#y = PAGE_HEIGHT - MARGIN_Y - LABEL_HEIGHT
+
+x = LEFT_MARGIN
+y = PAGE_HEIGHT - TOP_MARGIN - LABEL_HEIGHT
+
+label_count = 0
+
+for item in labels:
+    # Draw label border (optional, helps alignment)
+    c.rect(x, y, LABEL_WIDTH, LABEL_HEIGHT)
+
+    #text_x = x + 0.1 * inch
+    #text_y = y + LABEL_HEIGHT - 0.3 * inch
+
+    text_x = x + 0.08 * inch
+    top_y = y + LABEL_HEIGHT - 0.14 * inch
+    line_gap = 9.5
+
+    c.setFont("Helvetica", 7.5)
+
+    lines = [
+    f"Module: {item['module']}",
+    f"Board: {item['board']}",
+    f"Channel: {item['channel']}",
+    f"R = {item['resistance']}",
+    f"Date: {item['date']}",
+    f"Bin: {item.get('Bin', '_____')}",
+    ]
+
+    for j, line in enumerate(lines):
+        c.drawString(text_x, top_y - j * line_gap, line)
+
+    #c.drawString(text_x, text_y,       f"Module: {item['module']}")
+    #c.drawString(text_x, text_y - 6,   f"Board: {item['board']}")
+    #c.drawString(text_x, text_y - 12,   f"Channel: {item['channel']}")
+    #c.drawString(text_x, text_y - 24,   f"R = {item['resistance']}")
+    #c.drawString(text_x, text_y - 36,   f"Date: {item['date']}")
+    #c.drawString(text_x, text_y - 48,   f"Bin: _____")
+
+    label_count += 1
+    x += LABEL_WIDTH
+
+    #if label_count % LABELS_PER_ROW == 0:
+    #    x = MARGIN_X
+    #    y -= LABEL_HEIGHT
+
+    #if y < MARGIN_Y:
+    #    c.showPage()
+    #    c.setFont("Helvetica", 8)
+    #    x = MARGIN_X
+    #    y = PAGE_HEIGHT - MARGIN_Y - LABEL_HEIGHT
+
+    if label_count % LABELS_PER_ROW == 0:
+        x = LEFT_MARGIN
+        y -= LABEL_HEIGHT
+    
+    if y < BOTTOM_MARGIN:
+        c.showPage()
+        c.setFont("Helvetica", 8)
+        x = LEFT_MARGIN
+        y = PAGE_HEIGHT - TOP_MARGIN - LABEL_HEIGHT
+
+c.save()
+print("PDF created: resistor_labels.pdf")
