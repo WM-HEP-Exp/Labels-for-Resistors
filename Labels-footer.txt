@@ -1,4 +1,10 @@
 ]
+
+# Awful hack to deal with Windows character encoding problems. On Mac or Linux this does not matter.
+for i in labels:
+    if type(i['resistance']).__name__ == 'bytes': # Check if Resistance label has been encoded using UTF-8. If it has, the type will be "bytes", otherwise "str".
+        i['resistance'] = i['resistance'].decode('utf-8')
+
 # =========================
 # Create PDF
 # =========================
