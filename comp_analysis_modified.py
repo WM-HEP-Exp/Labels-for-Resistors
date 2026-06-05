@@ -645,6 +645,8 @@ for item in range(len(labels)):
     else:
         if is_end:
             print(f'    {labels[item]}')
+        else:
+            print(f'    {labels[item]},')
 #print("]")
 
 
