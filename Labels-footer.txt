@@ -5,6 +5,11 @@ for i in labels:
     if type(i['resistance']).__name__ == 'bytes': # Check if Resistance label has been encoded using UTF-8. If it has, the type will be "bytes", otherwise "str".
         i['resistance'] = i['resistance'].decode('utf-8')
 
+def get_key(item): # Helper function for sorting labels by module, then board, then channel
+    return (item['module'], ord(item['board']), item['channel'])
+
+labels.sort(key=get_key)
+
 # =========================
 # Create PDF
 # =========================
