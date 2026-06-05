@@ -3,6 +3,7 @@ import json
 import os
 import sys
 import time
+import textwrap
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -606,7 +607,7 @@ labels = []
 
 module_number = int(sys.argv[2])
 date_str = sys.argv[3]
-is_end = (sys.argv[4] == "True")
+#is_end = (sys.argv[4] == "True")
 #print(result_id[:, 0])
 
 for i, board in enumerate(result_id[:, 0]):   # loop over boards
@@ -623,6 +624,11 @@ for i, board in enumerate(result_id[:, 0]):   # loop over boards
         #print(board_letter)
         # skip empty / bad values if needed
         
+        bins = [5.006, 5.018, 5.031, 5.043, 5.056, 5.068, 5.081, 5.094, 5.106, 5.118, 5.131, 5.143, 5.156, 5.168, 5.181, 5.193, 5.206, 5.218, 5.231] # change this if new bins are added
+        bin_num = len(list(filter(lambda r: r+0.0005 < resistance, bins)))
+        bin_names = textwrap.wrap('NQNPNONNNMNLNKNINHNGNFNENDNCNBNAOOPAPBPT', 2) # lazy hack so i didn't have to type out a bunch of commas
+        res_bin = bin_names[bin_num]
+        
         labels.append({
             "module": module_number,
             "board": board_letter,  # optional cleanup
@@ -630,22 +636,15 @@ for i, board in enumerate(result_id[:, 0]):   # loop over boards
             "channel": ch + 1,
             "date": date_str,
              "resistance": f"{resistance:.3f} GΩ".encode("utf-8") if 3 <= resistance <= 6 else "nan", # .encode() is necessary on windows
-            "Bin": "_____"
+            "Bin": res_bin
         })
 
 # =========================
 # PRINT NICELY
 # =========================
 
-#print("labels = [")
-for item in range(len(labels)):
-    #print(item, (len(labels) - 1))
-    if item != (len(labels) - 1):
-        print(f'    {labels[item]},')
-    else:
-        if is_end:
-            print(f'    {labels[item]}')
-#print("]")
+for item in labels:
+    print(f'    {item},')
 
 
 # =========================
