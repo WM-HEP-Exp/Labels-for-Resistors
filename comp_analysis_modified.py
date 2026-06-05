@@ -606,7 +606,7 @@ labels = []
 
 module_number = int(sys.argv[2])
 date_str = sys.argv[3]
-is_end = (sys.argv[4] == "True")
+#is_end = (sys.argv[4] == "True")
 #print(result_id[:, 0])
 
 for i, board in enumerate(result_id[:, 0]):   # loop over boards
@@ -637,17 +637,8 @@ for i, board in enumerate(result_id[:, 0]):   # loop over boards
 # PRINT NICELY
 # =========================
 
-#print("labels = [")
-for item in range(len(labels)):
-    #print(item, (len(labels) - 1))
-    if item != (len(labels) - 1):
-        print(f'    {labels[item]},')
-    else:
-        if is_end:
-            print(f'    {labels[item]}')
-        else:
-            print(f'    {labels[item]},')
-#print("]")
+for item in labels:
+    print(f'    {item},')
 
 
 # =========================
