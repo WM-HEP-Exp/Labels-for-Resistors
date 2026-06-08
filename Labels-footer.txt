@@ -13,7 +13,8 @@ labels.sort(key=get_key)
 # =========================
 # Create PDF
 # =========================
-c = canvas.Canvas("resistor_labels.pdf", pagesize=letter)
+date_str = sys.argv[1]
+c = canvas.Canvas("resistor_labels_"+date_str+".pdf", pagesize=letter)
 c.setFont("Helvetica", 8)
 
 #x = MARGIN_X
