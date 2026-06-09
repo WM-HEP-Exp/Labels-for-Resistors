@@ -636,7 +636,7 @@ for i, board in enumerate(result_id[:, 0]):   # loop over boards
             "channel": ch + 1,
             "date": date_str,
              "resistance": f"{resistance:.3f} GΩ".encode("utf-8") if 3 <= resistance <= 6 else "nan", # .encode() is necessary on windows
-            "Bin": res_bin
+            "Bin": res_bin if (3 < resistance < 6) else 'nan'
         })
 
 # =========================
