@@ -616,11 +616,12 @@ for i, board in enumerate(result_id[:, 0]):   # loop over boards
         resistance = result_value[i, ch, 0] / 1000  # convert to GΩ
         
         board_str = str(board)
-        #print(str(board))
+        #print(str(board), file=sys.stderr)
         parts = board_str.split("_")
         board_num = int(parts[1])
         
         board_letter = chr(ord('A') + board_num - 1)
+        #print("processing number " + str(board_num) + " letter " + board_letter, file=sys.stderr)
         #print(board_letter)
         # skip empty / bad values if needed
         
