@@ -177,6 +177,19 @@ def annotate_heatmap(im, data=None, valfmt="{x:.2f}",
     return texts
 
 
+def filter_latest(data_files_json):
+    # Use only latest JSON files
+    data_files_filter = {}
+    for i in data_files_json:
+        f = i.split('_')
+        if f[3]+'_'+f[4] in data_files_filter:
+            if int(f[5].split('.')[0]) > int(data_files_filter[f[3]+'_'+f[4]].split('.')[0]):
+                data_files_filter[f[3]+'_'+f[4]] = f[5]
+        else:
+            data_files_filter[f[3]+'_'+f[4]] = f[5]
+    return list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], list(data_files_filter.items())))
+
+
 def load_data_file(file):
     """
     Load a data file (CSV or JSON) and return a DataFrame and board ID.
@@ -528,9 +541,9 @@ if __name__ == '__main__':
         sys.exit(1)
     if len(sys.argv) >= 2:
         data_path = sys.argv[1]
-
         data_files_csv = glob.glob(data_path + "/*Comp*.csh")
         data_files_json = glob.glob(data_path + "/*Comp*.json")
+        data_files_json = filter_latest(data_files_json)
         if len(data_files_csv) < 1 and len(data_files_json) < 1:
             print("No data files found, exiting")
             sys.exit(1)
