@@ -180,14 +180,17 @@ def annotate_heatmap(im, data=None, valfmt="{x:.2f}",
 def filter_latest(data_files_json):
     # Use only latest JSON files
     data_files_filter = {}
-    for i in data_files_json:
-        f = i.split('_')
+    data_files_location = list(map(os.path.split, data_files_json))
+    for i in data_files_location:
+        f = i[1].split('_')
         if f[3]+'_'+f[4] in data_files_filter:
             if int(f[5].split('.')[0]) > int(data_files_filter[f[3]+'_'+f[4]].split('.')[0]):
                 data_files_filter[f[3]+'_'+f[4]] = f[5]
         else:
             data_files_filter[f[3]+'_'+f[4]] = f[5]
-    return list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], list(data_files_filter.items())))
+    #return list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], list(data_files_filter.items())))
+    latest_files = list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], data_files_filter.items()))
+    return list(map(lambda x: x[0]+os.sep+x[1], list(filter(lambda x: x[1] in latest_files, data_files_location)))) # sorry to whoever has to read this
 
 
 def load_data_file(file):
@@ -290,11 +293,9 @@ def analyze_board(board, file, pickoff_frame, hvFromIndex, p_hvcal, sigp_hvcal, 
         except RuntimeError as e:
             print(f"Fit did not converge for board {board_id}, channel {channel}: {e}")
             continue
-        except TypeError as e:
-            print(f"Bad data file in board {board_id}, channel {channel}. Exception: {e}", file=sys.stderr)
-            continue
-        except ValueError as e:
-            print(f"ValueError on board {board_id}, channel {channel}", file=sys.stderr)
+        except (TypeError, ValueError) as e:
+            board_split = board_id.split('_')
+            print(f"{type(e).__name__}: Bad channel: module {board_split[0]}, board {chr(int(board_split[1])+0x40)}, channel {channel}. Setting resistance to NaN", file=sys.stderr)
             continue
         result_value_val[channel - 1, 0] = 1 / popt[0] * 1e-6
         result_value_val[channel - 1, 1] = popt[1]
@@ -593,7 +594,7 @@ if __name__ == '__main__':
                 result_value[board] = result_value_val
                 result_error[board] = result_error_val
             except Exception as e:
-                print(f"{type(e).__name__} processing board {result_id_val}: {e}")
+                print(f"{type(e).__name__} processing board {result_id_val}: {e}") # type(e).__name__ will resolve to the name of the error type, like "ValueError"
     fig, ax = plt.subplots()
     custom_colors = ['white', 'red', 'blue']
     base_cmap = plt.get_cmap('cividis')  # or 'plasma', 'inferno', 'cividis', etc.
