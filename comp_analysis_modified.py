@@ -178,7 +178,20 @@ def annotate_heatmap(im, data=None, valfmt="{x:.2f}",
 
 
 def filter_latest(data_files_json):
-    # Use only latest JSON files
+    """
+    Filter JSON data files to prevent analyzing multiple files for the same dunk board.
+
+    Parameters
+    ----------
+    data_files_json : list
+        The data files to filter.
+
+    Returns
+    -------
+    data_files_filtered : list
+        The data files filtered, with duplicate files for the same board removed, and only the latest kept.
+    """
+
     data_files_filter = {}
     data_files_location = list(map(os.path.split, data_files_json))
     for i in data_files_location:
@@ -190,7 +203,8 @@ def filter_latest(data_files_json):
             data_files_filter[f[-3]+'_'+f[-2]] = f[-1]
     #return list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], list(data_files_filter.items())))
     latest_files = list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], data_files_filter.items()))
-    return list(map(lambda x: x[0]+os.sep+x[1], list(filter(lambda x: x[1] in latest_files, data_files_location)))) # sorry to whoever has to read this
+    data_files_filtered = list(map(lambda x: x[0]+os.sep+x[1], list(filter(lambda x: x[1] in latest_files, data_files_location)))) # sorry to whoever has to read this
+    return data_files_filtered
 
 
 def load_data_file(file):
