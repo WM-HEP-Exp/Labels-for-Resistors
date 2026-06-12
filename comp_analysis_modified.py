@@ -595,27 +595,27 @@ if __name__ == '__main__':
                 result_error[board] = result_error_val
             except Exception as e:
                 print(f"{type(e).__name__} processing board {result_id_val}: {e}") # type(e).__name__ will resolve to the name of the error type, like "ValueError"
-    fig, ax = plt.subplots()
+    #fig, ax = plt.subplots()
     custom_colors = ['white', 'red', 'blue']
-    base_cmap = plt.get_cmap('cividis')  # or 'plasma', 'inferno', 'cividis', etc.
-    colors = base_cmap(np.linspace(0, 1, 29))
-    cmap = mpl.colors.ListedColormap(colors)
+    #base_cmap = plt.get_cmap('cividis')  # or 'plasma', 'inferno', 'cividis', etc.
+    #colors = base_cmap(np.linspace(0, 1, 29))
+    #cmap = mpl.colors.ListedColormap(colors)
     
     bounds = [0, 1, 4.85, 4.875, 4.9, 4.925, 4.95, 4.975, 5., 5.025, 5.05,
               5.075, 5.1, 5.125, 5.15, 5.175, 5.2, 5.225, 5.25, 5.275]  # ,
     # 5.3  , 5.325, 5.35 , 5.375, 5.4  , 5.425, 5.45 , 5.475, 5.5  ,10]
-    norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
-    im, cbar = heatmap(result_value[:, :, 0] / 1000, result_id[:, 0], range(1, 9), cmap=cmap, ax=ax,
-                       cbarlabel="Resistance")#, norm=norm)
-    texts = annotate_heatmap(im, valfmt="{x:.3f}", threshold=5.4)
+    #norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
+    #im, cbar = heatmap(result_value[:, :, 0] / 1000, result_id[:, 0], range(1, 9), cmap=cmap, ax=ax,
+    #                   cbarlabel="Resistance")#, norm=norm)
+    #texts = annotate_heatmap(im, valfmt="{x:.3f}", threshold=5.4)
 
-    for i in range(8):
+    #for i in range(8):
         # value=result_value[3,i,0]/1000-result_value[0,i,0]/1000
-        value = np.std((result_value[:, i, 0] / 1000)[np.where(result_value[:, i, 0] / 1000 > 3)])/np.mean((result_value[:, i, 0] / 1000)[np.where(result_value[:, i, 0] / 1000 > 3)])*100
+        #value = np.std((result_value[:, i, 0] / 1000)[np.where(result_value[:, i, 0] / 1000 > 3)])/np.mean((result_value[:, i, 0] / 1000)[np.where(result_value[:, i, 0] / 1000 > 3)])*100
         #print((result_value[:, i, 0] / 1000)[np.where((result_value[:, i, 0] / 1000) > 3)])
-        plt.text(i, len(result_value[:, 0, 0]), f"{value:.4f}", ha="center", va="center", rotation="vertical")
-    plt.text(-4.5, len(result_value[:, 0, 0]) + 0.3, "% Std Dev of Ch") #Here I need to print the side of the label in which will be saved or not
-    fig.tight_layout(pad=2)
+        #plt.text(i, len(result_value[:, 0, 0]), f"{value:.4f}", ha="center", va="center", rotation="vertical")
+    #plt.text(-4.5, len(result_value[:, 0, 0]) + 0.3, "% Std Dev of Ch") #Here I need to print the side of the label in which will be saved or not
+    #fig.tight_layout(pad=2)
     #fig.show()
 
 #plt.show()
