@@ -277,6 +277,12 @@ def analyze_board(board, file, pickoff_frame, hvFromIndex, p_hvcal, sigp_hvcal, 
         except RuntimeError as e:
             print(f"Fit did not converge for board {board_id}, channel {channel}: {e}")
             continue
+        except TypeError as e:
+            print(f"Bad data file in board {board_id}, channel {channel}. Exception: {e}", file=sys.stderr)
+            continue
+        except ValueError as e:
+            print(f"ValueError on board {board_id}, channel {channel}", file=sys.stderr)
+            continue
         result_value_val[channel - 1, 0] = 1 / popt[0] * 1e-6
         result_value_val[channel - 1, 1] = popt[1]
         result_error_val[channel - 1, 0] = 1 / perr[0] * 1e-6
@@ -574,7 +580,7 @@ if __name__ == '__main__':
                 result_value[board] = result_value_val
                 result_error[board] = result_error_val
             except Exception as e:
-                print(f"Error processing board {board}: {e}")
+                print(f"{type(e).__name__} processing board {result_id_val}: {e}")
     fig, ax = plt.subplots()
     custom_colors = ['white', 'red', 'blue']
     base_cmap = plt.get_cmap('cividis')  # or 'plasma', 'inferno', 'cividis', etc.
