@@ -553,7 +553,7 @@ if __name__ == '__main__':
     all_files = data_files_csv + data_files_json
     anylisTime = int(time.time())
     FIGURES_DIR = os.path.abspath(os.path.join(data_path, f"WM_Figures_{anylisTime}"))
-    os.makedirs(FIGURES_DIR, exist_ok=True)
+    #os.makedirs(FIGURES_DIR, exist_ok=True) # irritating
     result_value = np.zeros((len(all_files), 8, 2))
     result_id = np.zeros((len(all_files), 3), dtype=object)
     result_error = np.zeros((len(all_files), 8, 3))
