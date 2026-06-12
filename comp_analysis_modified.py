@@ -569,6 +569,7 @@ if __name__ == '__main__':
         for future in as_completed(futures):
             try:
                 board, result_id_val, result_value_val, result_error_val = future.result()
+                #print(board, result_id_val, result_value_val, result_error_val, file=sys.stderr)
                 result_id[board, 0] = result_id_val
                 result_value[board] = result_value_val
                 result_error[board] = result_error_val
@@ -603,49 +604,49 @@ if __name__ == '__main__':
 # CREATE LABEL LIST
 # =========================
 
-labels = []
+    labels = []
 
-module_number = int(sys.argv[2])
-date_str = sys.argv[3]
+    module_number = int(sys.argv[2])
+    date_str = sys.argv[3]
 #is_end = (sys.argv[4] == "True")
-#print(result_id[:, 0])
+#print(result_id[:, 0], file=sys.stderr)
 
-for i, board in enumerate(result_id[:, 0]):   # loop over boards
-    for ch in range(8):                       # channels 1–8
+    for i, board in enumerate(result_id[:, 0]):   # loop over boards
+        for ch in range(8):                       # channels 1–8
         
-        resistance = result_value[i, ch, 0] / 1000  # convert to GΩ
+            resistance = result_value[i, ch, 0] / 1000  # convert to GΩ
         
-        board_str = str(board)
-        #print(str(board), file=sys.stderr)
-        parts = board_str.split("_")
-        board_num = int(parts[1])
+            board_str = str(board)
+            #print(str(board), file=sys.stderr)
+            parts = board_str.split("_")
+            board_num = int(parts[1])
+            
+            board_letter = chr(ord('A') + board_num - 1)
+            #print("processing number " + str(board_num) + " letter " + board_letter, file=sys.stderr)
+            #print(board_letter)
+            # skip empty / bad values if needed
         
-        board_letter = chr(ord('A') + board_num - 1)
-        #print("processing number " + str(board_num) + " letter " + board_letter, file=sys.stderr)
-        #print(board_letter)
-        # skip empty / bad values if needed
-        
-        bins = [5.006, 5.018, 5.031, 5.043, 5.056, 5.068, 5.081, 5.094, 5.106, 5.118, 5.131, 5.143, 5.156, 5.168, 5.181, 5.193, 5.206, 5.218, 5.231] # change this if new bins are added
-        bin_num = len(list(filter(lambda r: r+0.0005 < resistance, bins)))
-        bin_names = textwrap.wrap('NQNPNONNNMNLNKNINHNGNFNENDNCNBNAOOPAPBPT', 2) # lazy hack so i didn't have to type out a bunch of commas
-        res_bin = bin_names[bin_num]
-        
-        labels.append({
-            "module": module_number,
-            "board": board_letter,  # optional cleanup
-            #"board": str(board).replace("_Cold", ""), # optional cleanup
-            "channel": ch + 1,
-            "date": date_str,
-             "resistance": f"{resistance:.3f} GΩ".encode("utf-8") if 3 <= resistance <= 6 else "nan", # .encode() is necessary on windows
-            "Bin": res_bin if (3 < resistance < 6) else 'nan'
-        })
+            bins = [5.006, 5.018, 5.031, 5.043, 5.056, 5.068, 5.081, 5.094, 5.106, 5.118, 5.131, 5.143, 5.156, 5.168, 5.181, 5.193, 5.206, 5.218, 5.231] # change this if new bins are added
+            bin_num = len(list(filter(lambda r: r+0.0005 < resistance, bins)))
+            bin_names = textwrap.wrap('NQNPNONNNMNLNKNINHNGNFNENDNCNBNAOOPAPBPT', 2) # lazy hack so i didn't have to type out a bunch of commas
+            res_bin = bin_names[bin_num]
+            
+            labels.append({
+                "module": module_number,
+                "board": board_letter,  # optional cleanup
+                #"board": str(board).replace("_Cold", ""), # optional cleanup
+                "channel": ch + 1,
+                "date": date_str,
+                 "resistance": f"{resistance:.3f} GΩ".encode("utf-8") if 3 <= resistance <= 6 else "nan", # .encode() is necessary on windows
+                "Bin": res_bin if (3 < resistance < 6) else 'nan'
+            })
 
 # =========================
 # PRINT NICELY
 # =========================
 
-for item in labels:
-    print(f'    {item},')
+    for item in labels:
+        print(f'    {item},')
 
 
 # =========================
