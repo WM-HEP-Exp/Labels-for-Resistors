@@ -183,11 +183,11 @@ def filter_latest(data_files_json):
     data_files_location = list(map(os.path.split, data_files_json))
     for i in data_files_location:
         f = i[1].split('_')
-        if f[3]+'_'+f[4] in data_files_filter:
-            if int(f[5].split('.')[0]) > int(data_files_filter[f[3]+'_'+f[4]].split('.')[0]):
-                data_files_filter[f[3]+'_'+f[4]] = f[5]
+        if f[-3]+'_'+f[-2] in data_files_filter:
+            if int(f[-1].split('.')[0]) > int(data_files_filter[f[-3]+'_'+f[-2]].split('.')[0]):
+                data_files_filter[f[-3]+'_'+f[-2]] = f[-1]
         else:
-            data_files_filter[f[3]+'_'+f[4]] = f[5]
+            data_files_filter[f[-3]+'_'+f[-2]] = f[-1]
     #return list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], list(data_files_filter.items())))
     latest_files = list(map(lambda x: 'WM_Comp_test_'+x[0]+'_'+x[1], data_files_filter.items()))
     return list(map(lambda x: x[0]+os.sep+x[1], list(filter(lambda x: x[1] in latest_files, data_files_location)))) # sorry to whoever has to read this
