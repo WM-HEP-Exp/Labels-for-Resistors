@@ -81,4 +81,4 @@ for item in labels:
         y = PAGE_HEIGHT - TOP_MARGIN - LABEL_HEIGHT
 
 c.save()
-print("PDF created: resistor_labels_"+date_str+".pdf")
+print("PDF created: resistor_labels_"+date_str.replace("/","_")+".pdf")
