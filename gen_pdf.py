@@ -8,6 +8,9 @@ DATE = "6-13-26"
 if len(sys.argv) < 2:
 	filepath = DATA_FILES
 	filedate = DATE
+else:
+	filepath = sys.argv[1]
+	filedate = sys.argv[2]
 path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path)
 f = open("Labels1.py", "w")
