@@ -2,6 +2,12 @@ import os
 import subprocess
 import sys
 
+DATA_FILES = ""
+DATE = ""
+
+if len(sys.argv) < 2:
+	filepath = DATA_FILES
+	filedate = DATE
 path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path)
 f = open("Labels1.py", "w")
@@ -12,19 +18,19 @@ headertext = header.read()
 header.close()
 f.write(headertext)
 print("running modules...")
-p1 = subprocess.run(["python3", "comp_analysis_modified.py", sys.argv[1]+"/M1", "1", sys.argv[2]], encoding="utf-8", capture_output=True)
+p1 = subprocess.run(["python3", "comp_analysis_modified.py", filepath+"/M1", "1", filedate], encoding="utf-8", capture_output=True)
 f.write(p1.stdout)
 sys.stderr.write(p1.stderr) # debugging
 #sys.stderr.write(os.linesep)
 sys.stderr.flush()
 print("mod 1 done")
-p2 = subprocess.run(["python3", "comp_analysis_modified.py", sys.argv[1]+"/M2", "2", sys.argv[2]], encoding="utf-8", capture_output=True)
+p2 = subprocess.run(["python3", "comp_analysis_modified.py", filepath+"/M2", "2", filedate], encoding="utf-8", capture_output=True)
 f.write(p2.stdout)
 sys.stderr.write(p2.stderr) # debugging
 #sys.stderr.write(os.linesep)
 sys.stderr.flush()
 print("mod 2 done")
-p3 = subprocess.run(["python3", "comp_analysis_modified.py", sys.argv[1]+"/M3", "3", sys.argv[2]], encoding="utf-8", capture_output=True)
+p3 = subprocess.run(["python3", "comp_analysis_modified.py", filepath+"/M3", "3", filedate], encoding="utf-8", capture_output=True)
 f.write(p3.stdout)
 sys.stderr.write(p3.stderr) # debugging
 #sys.stderr.write(os.linesep)
