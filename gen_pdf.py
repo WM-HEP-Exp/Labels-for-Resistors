@@ -2,8 +2,8 @@ import os
 import subprocess
 import sys
 
-DATA_FILES = ""
-DATE = ""
+DATA_FILES = "/Users/celebrimbor/Documents/6-13-26"
+DATE = "6-13-26"
 
 if len(sys.argv) < 2:
 	filepath = DATA_FILES
@@ -41,4 +41,4 @@ footertext = footer.read()
 footer.close()
 f.write(footertext)
 f.close()
-subprocess.run(["python3", "Labels1.py", sys.argv[2]])
+subprocess.run(["python3", "Labels1.py", filedate])
