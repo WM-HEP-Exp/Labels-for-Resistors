@@ -570,7 +570,7 @@ if __name__ == '__main__':
             sys.exit(1)
         # Should implenent check for null
         # Assume all files are in <Data_folder>
-    else if len(sys.argv) == 5:
+    elif len(sys.argv) == 5:
         data_path = sys.argv[1]
         data_files_csv = glob.glob(data_path + "/*Comp*.csh")
         data_files_json = glob.glob(data_path + "/*Comp*.json")
