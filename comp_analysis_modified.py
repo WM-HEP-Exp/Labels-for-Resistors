@@ -554,7 +554,7 @@ if __name__ == '__main__':
               "<Data_Folder> [Cal_folder] >> <Data_Folder>/output.txt\n "
               )
         sys.exit(1)
-    if len(sys.argv) >= 2:
+    if len(sys.argv) == 4:
         data_path = sys.argv[1]
         data_files_csv = glob.glob(data_path + "/*Comp*.csh")
         data_files_json = glob.glob(data_path + "/*Comp*.json")
@@ -570,7 +570,21 @@ if __name__ == '__main__':
             sys.exit(1)
         # Should implenent check for null
         # Assume all files are in <Data_folder>
-
+    else if len(sys.argv) == 5:
+        data_path = sys.argv[1]
+        data_files_csv = glob.glob(data_path + "/*Comp*.csh")
+        data_files_json = glob.glob(data_path + "/*Comp*.json")
+        data_files_json = filter_latest(data_files_json)
+        if len(data_files_csv) < 1 and len(data_files_json) < 1:
+            print("No data files found, exiting")
+            sys.exit(1)
+        try:
+            data_path = sys.argv[4]
+            HV_file = (glob.glob(data_path + "/*HV*.json") + glob.glob(data_path + "/*HV*.csv"))[0]
+            pickoff_file = glob.glob(data_path + "/*Pickoff*.csv")[0]
+        except IndexError:
+            print("No HV or Pickoff files found in folder " + data_path)
+            sys.exit(1)
 
     showHVPlot = 0
     showResPlot = 0
