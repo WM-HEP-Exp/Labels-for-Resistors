@@ -3,3 +3,4 @@ resistance_labels.csv
 resistor_labels.pdf
 Labels1.py
 resistor_labels_*.pdf
+__pycache__
