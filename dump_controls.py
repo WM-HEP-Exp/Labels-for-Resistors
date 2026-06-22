@@ -38,8 +38,8 @@ def filter_resistances(resistance_map):
     key2 = '2_A_1'
     key3 = '3_A_1'
     res1 = resistance_map[key1] if key1 in resistance_map else 'nan'
-    res1 = resistance_map[key2] if key2 in resistance_map else 'nan'
-    res1 = resistance_map[key3] if key3 in resistance_map else 'nan'
+    res2 = resistance_map[key2] if key2 in resistance_map else 'nan'
+    res3 = resistance_map[key3] if key3 in resistance_map else 'nan'
     return [res1, res2, res3]
 
 if __name__ == '__main__':
