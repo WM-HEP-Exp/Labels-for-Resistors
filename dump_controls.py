@@ -26,7 +26,11 @@ def get_resistances(data_folder):
 def map_resistances(resistances):
     resistance_map = {}
     for i in resistances:
-        resistance_map[str(i['module']) + '_' + str(i['board']) + '_' + str(i['channel'])] = i['resistance'].decode('utf-8')
+        #print(type(i['resistance']).__name__)
+        if type(i['resistance']).__name__ == 'bytes':
+            resistance_map[str(i['module']) + '_' + str(i['board']) + '_' + str(i['channel'])] = i['resistance'].decode('utf-8')
+        else:
+            resistance_map[str(i['module']) + '_' + str(i['board']) + '_' + str(i['channel'])] = i['resistance']
     return resistance_map
 
 def filter_resistances(resistance_map):
@@ -36,7 +40,7 @@ def filter_resistances(resistance_map):
     res1 = resistance_map[key1] if key1 in resistance_map else 'nan'
     res1 = resistance_map[key2] if key2 in resistance_map else 'nan'
     res1 = resistance_map[key3] if key3 in resistance_map else 'nan'
-    return [str(key1), str(key2, key3]
+    return [key1, key2, key3]
 
 if __name__ == '__main__':
     #folder_map = {}
