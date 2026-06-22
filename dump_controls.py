@@ -40,7 +40,7 @@ def filter_resistances(resistance_map):
     res1 = resistance_map[key1] if key1 in resistance_map else 'nan'
     res1 = resistance_map[key2] if key2 in resistance_map else 'nan'
     res1 = resistance_map[key3] if key3 in resistance_map else 'nan'
-    return [key1, key2, key3]
+    return [res1, res2, res3]
 
 if __name__ == '__main__':
     #folder_map = {}
