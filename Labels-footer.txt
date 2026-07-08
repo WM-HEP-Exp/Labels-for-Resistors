@@ -45,6 +45,7 @@ for item in labels:
     f"R = {item['resistance']}",
     f"Date: {item['date']}",
     f"Bin: {item.get('Bin', '_____')}",
+    f"Cycle: {2}",
     ]
 
     for j, line in enumerate(lines):
@@ -56,6 +57,7 @@ for item in labels:
     #c.drawString(text_x, text_y - 24,   f"R = {item['resistance']}")
     #c.drawString(text_x, text_y - 36,   f"Date: {item['date']}")
     #c.drawString(text_x, text_y - 48,   f"Bin: _____")
+    #c.drawString(text_x, text_y - 60,   f"Cycle: 2")
 
     label_count += 1
     x += LABEL_WIDTH
