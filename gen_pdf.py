@@ -11,6 +11,11 @@ if len(sys.argv) < 2:
 else:
 	filepath = sys.argv[1]
 	filedate = sys.argv[2]
+	
+cycle = 1
+if len(sys.argv) == 4:
+	cycle = sys.argv[3]
+
 path = os.path.dirname(os.path.abspath(__file__))
 os.chdir(path)
 f = open("Labels1.py", "w")
@@ -48,6 +53,7 @@ if p3.stdout != "No data files found, exiting\n":
 	print("mod 3 done")
 else:
 	print("mod 3 no data files")
+f.write(f"]\ncycle={cycle}")
 footer = open("Labels-footer.txt", "r")
 footertext = footer.read()
 footer.close()
