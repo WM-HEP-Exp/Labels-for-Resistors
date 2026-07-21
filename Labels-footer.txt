@@ -1,4 +1,4 @@
-]
+
 
 # Awful hack to deal with Windows character encoding problems. On Mac or Linux this does not matter.
 for i in labels:
@@ -45,7 +45,7 @@ for item in labels:
     f"R = {item['resistance']}",
     f"Date: {item['date']}",
     f"Bin: {item.get('Bin', '_____')}",
-    f"Cycle: {2}",
+    f"Cycle: {cycle}",
     ]
 
     for j, line in enumerate(lines):

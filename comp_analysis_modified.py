@@ -685,8 +685,8 @@ if __name__ == '__main__':
                 #"board": str(board).replace("_Cold", ""), # optional cleanup
                 "channel": ch + 1,
                 "date": date_str,
-                 "resistance": f"{resistance:.3f} GΩ".encode("utf-8") if 3 <= resistance <= 6 else "nan", # .encode() is necessary on windows
-                "Bin": res_bin if (3 < resistance < 6) else 'nan'
+                 "resistance": f"{resistance:.3f} GΩ".encode("utf-8") if 0 <= resistance <= 6 else "nan", # .encode() is necessary on windows
+                "Bin": res_bin if (0 < resistance < 6) else 'nan'
             })
 
 # =========================
